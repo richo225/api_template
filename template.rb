@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
-insert_into_file '.gitignore', '/config/credentials.yml.enc'
+append_to_file '.gitignore', <<~GITIGNORE
+  /config/credentials.yml
+  /config/database.yml
+  .env
+GITIGNORE
 
 # Initialise git
 git :init
-git add: "."
+git add: '.'
 git commit: "-m 'Initial commit'"
 
 # Setup gems
@@ -17,6 +21,7 @@ gem_group :development, :test do
   gem 'pry'
   gem 'pry-byebug'
   gem 'shoulda-matchers'
+  gem 'rspec-rails', '~> 3.7.2'
 end
 
 gem_group :development do
@@ -29,6 +34,20 @@ gem 'httparty', '~> 0.16.2'
 gem 'omniauth-github'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
-gem 'rspec-rails', '~> 3.7.2'
 
-bundle install
+# Setup dotenv
+create_file '.env'
+
+# Setup RSpec
+generate 'rspec:install'
+
+# Setup FactoryBot
+create_file 'spec/support/factory_bot.rb', <<~FACTORYBOT
+  RSpec.configure do |config|
+    config.include FactoryBot::Syntax::Methods
+  end
+FACTORYBOT
+
+insert_into_file 'spec/rails_helper.rb', after: "require 'rspec/rails'\n" do
+  "require 'support/factory_bot'\n"
+end
