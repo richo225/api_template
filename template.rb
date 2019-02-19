@@ -51,3 +51,23 @@ FACTORYBOT
 insert_into_file 'spec/rails_helper.rb', after: "require 'rspec/rails'\n" do
   "require 'support/factory_bot'\n"
 end
+
+# Setup DatabaseCleaner
+create_file 'spec/support/database_cleaner.rb', <<~CLEANER
+  RSpec.configure do |config|
+    config.before(:suite) do
+      DatabaseCleaner.strategy = :transaction
+      DatabaseCleaner.clean_with(:truncation)
+    end
+
+    config.around(:each) do |example|
+      DatabaseCleaner.cleaning do
+        example.run
+      end
+    end
+  end
+CLEANER
+
+insert_into_file 'spec/rails_helper.rb', after: "require 'support/factory_bot'\n" do
+  "require 'support/database_cleaner'\n"
+end
