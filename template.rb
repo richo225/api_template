@@ -163,6 +163,20 @@ insert_into_file 'spec/rails_helper.rb', after: "require 'support/factory_bot'\n
   "require 'support/database_cleaner'\n"
 end
 
+# Setup shoulda matchers
+create_file 'spec/support/shoulda_matchers.rb', <<~SHOULDA
+  Shoulda::Matchers.configure do |config|
+    config.integrate do |with|
+      with.test_framework :rspec
+      with.library :rails
+    end
+  end
+SHOULDA
+
+insert_into_file 'spec/rails_helper.rb', after: "require 'support/database_cleaner'\n" do
+  "require 'support/database_cleaner'\n"
+end
+
 # Setup devise
 generate 'devise_token_auth:install'
 rails_command 'db:migrate'
