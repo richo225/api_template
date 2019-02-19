@@ -118,25 +118,21 @@ create_file '.env'
 # Setup RSpec
 generate 'rspec:install'
 
+# Require files into rails_helper
+insert_into_file 'spec/rails_helper.rb', after: "require 'rspec/rails'\n" do
+  <<~HELPERS
+    require 'support/factory_bot'
+    require 'support/database_cleaner'
+    require 'support/shoulda_matchers'
+  HELPERS
+end
+
 # Setup FactoryBot
 create_file 'spec/support/factory_bot.rb', <<~FACTORYBOT
   RSpec.configure do |config|
     config.include FactoryBot::Syntax::Methods
   end
 FACTORYBOT
-
-insert_into_file 'spec/rails_helper.rb', after: "require 'rspec/rails'\n" do
-  "require 'support/factory_bot'\n"
-end
-
-create_file 'spec/factories/user.rb', <<~USER
-  FactoryBot.define do
-    factory :user do
-      sequence(:email) { |n| "email#{n}@mail.com" }
-      password { 'StrongPassword3' }
-    end
-  end
-USER
 
 # Setup DatabaseCleaner
 create_file 'spec/support/database_cleaner.rb', <<~CLEANER
@@ -154,10 +150,6 @@ create_file 'spec/support/database_cleaner.rb', <<~CLEANER
   end
 CLEANER
 
-insert_into_file 'spec/rails_helper.rb', after: "require 'support/factory_bot'\n" do
-  "require 'support/database_cleaner'\n"
-end
-
 # Setup shoulda matchers
 create_file 'spec/support/shoulda_matchers.rb', <<~SHOULDA
   Shoulda::Matchers.configure do |config|
@@ -168,13 +160,19 @@ create_file 'spec/support/shoulda_matchers.rb', <<~SHOULDA
   end
 SHOULDA
 
-insert_into_file 'spec/rails_helper.rb', after: "require 'support/database_cleaner'\n" do
-  "require 'support/database_cleaner'\n"
-end
-
 # Setup devise
 generate 'devise_token_auth:install'
 rails_command 'db:migrate'
+
+# Create user factory
+create_file 'spec/factories/user.rb', <<~USER
+  FactoryBot.define do
+    factory :user do
+      sequence(:email) { |n| "email#{n}@mail.com" }
+      password { 'StrongPassword3' }
+    end
+  end
+USER
 
 # Initialise git
 git :init
