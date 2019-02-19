@@ -134,6 +134,15 @@ insert_into_file 'spec/rails_helper.rb', after: "require 'rspec/rails'\n" do
   "require 'support/factory_bot'\n"
 end
 
+create_file 'spec/factories/user.rb', <<~USER
+  FactoryBot.define do
+    factory :user do
+      sequence(:email) { |n| "email#{n}@mail.com" }
+      password { 'StrongPassword3' }
+    end
+  end
+USER
+
 # Setup DatabaseCleaner
 create_file 'spec/support/database_cleaner.rb', <<~CLEANER
   RSpec.configure do |config|
