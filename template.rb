@@ -6,11 +6,6 @@ append_to_file '.gitignore', <<~GITIGNORE
   .env
 GITIGNORE
 
-# Initialise git
-git :init
-git add: '.'
-git commit: "-m 'Initial commit'"
-
 # Setup gems
 gem_group :development, :test do
   gem 'coveralls', require: false
@@ -180,3 +175,8 @@ end
 # Setup devise
 generate 'devise_token_auth:install'
 rails_command 'db:migrate'
+
+# Initialise git
+git :init
+git add: '.'
+git commit: "-m 'Initial app setup'"
