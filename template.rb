@@ -71,3 +71,7 @@ CLEANER
 insert_into_file 'spec/rails_helper.rb', after: "require 'support/factory_bot'\n" do
   "require 'support/database_cleaner'\n"
 end
+
+# Setup devise
+generate 'devise_token_auth:install'
+rails_command 'db:migrate'
