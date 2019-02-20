@@ -1,24 +1,30 @@
-# README
+# Rails 5 JSON template
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Basic template to help me spin up a rails app quickly
 
-Things you may want to cover:
+## Usage
 
-* Ruby version
+Clone the repo:
 
-* System dependencies
+    $ git clone git@github.com:richo225/api_template.git
 
-* Configuration
+Create your rails app using the template:
 
-* Database creation
+    $ rails new <app_name> -d postgresql --api -m ./api_template/template.rb
 
-* Database initialization
+## Features
 
-* How to run the test suite
+* PostgreSQL database
+* FactoryBot
+* Faker
+* HTTParty
+* Rubocop linter
+* RSpec setup
+* Devise token authentication
+* Docker
 
-* Services (job queues, cache servers, search engines, etc.)
+## TODO
 
-* Deployment instructions
-
-* ...
+- [ ] Heroku deployment
+- [ ] CircleCI setup
+- [ ] Coveralls/test coverage
