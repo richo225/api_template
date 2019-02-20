@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 append_to_file '.gitignore', <<~GITIGNORE
-  /config/credentials.yml
+  /config/credentials.yml.enc
   /config/database.yml
   .env
 GITIGNORE
