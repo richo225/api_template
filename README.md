@@ -10,7 +10,7 @@ Clone the repo:
 
 Create your rails app using the template:
 
-    $ rails new <app_name> -d postgresql --api -m ./api_template/template.rb
+    $ rails new <app_name> --api -T -d postgresql -m ./api_template/template.rb
 
 ## Features
 

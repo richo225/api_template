@@ -1,0 +1,88 @@
+AllCops:
+  TargetRubyVersion: 2.3
+  Exclude:
+    - 'config/**/*'
+    - 'script/**/*'
+    - 'db/schema.rb'
+    - 'app/views/**/*'
+    - 'rails/config/**/*'
+    - 'rails/script/**/*'
+    - 'rails/db/schema.rb'
+    - 'rails/app/views/**/*'
+    - 'rails/**/*.js.coffee'
+
+Documentation:
+  Enabled: false
+
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - 'spec/**/*'
+
+Layout/DotPosition:
+  Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+  ExcludedMethods: ['describe', 'context']
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 120
+  Enabled: true
+
+Metrics/MethodLength:
+  Max: 15
+  CountComments: false
+  Enabled: true
+
+StringLiterals:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/BlockDelimiters:
+  Exclude:
+    - 'spec/**/*'
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/EmptyMethod:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/Lambda:
+  Enabled: false
+
+Style/MethodCallWithoutArgsParentheses:
+  Enabled: true
+
+Style/MethodDefParentheses:
+  Enabled: true
+
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    default: ()
+    '%i': '()'
+    '%I': '()'
+    '%r': '{}'
+    '%w': '()'
+    '%W': '()'
+
+Style/RegexpLiteral:
+  Enabled: false
+
+Style/StructInheritance:
+  Enabled: false
+
+Style/SymbolArray:
+  Enabled: false
+
+Style/WordArray:
+  Enabled: false
