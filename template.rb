@@ -165,7 +165,7 @@ generate 'devise_token_auth:install'
 rails_command 'db:migrate'
 
 # Create user factory
-create_file 'spec/factories/user.rb', <<~USER
+create_file 'spec/factories/user.rb', <<~'USER'
   FactoryBot.define do
     factory :user do
       sequence(:email) { |n| "email#{n}@mail.com" }
