@@ -4,6 +4,12 @@ Basic template to help me spin up a rails app quickly
 
 ## Usage
 
+One liner:
+
+    $ rails new <app_name> --api -T -d postgresql -m https://raw.githubusercontent.com/richo225/api_template/master/template.rb
+
+OR
+
 Clone the repo:
 
     $ git clone git@github.com:richo225/api_template.git
