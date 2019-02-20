@@ -114,9 +114,15 @@ rails_command 'db:setup'
 
 # Setup dotenv
 create_file '.env'
+create_file '.env.dist'
 
 # Setup RSpec
 generate 'rspec:install'
+
+append_to_file '.rspec', <<~RSPEC
+  --color
+  --format documentation
+RSPEC
 
 # Require files into rails_helper
 insert_into_file 'spec/rails_helper.rb', after: "require 'rspec/rails'\n" do
