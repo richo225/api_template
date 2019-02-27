@@ -212,19 +212,21 @@ DOCKERFILE
 create_file 'docker-compose.yml', <<~COMPOSE
   version: '3'
   services:
-  db:
-    image: postgres
-    volumes:
-      - ./tmp/db:/var/lib/postgresql/data
-  web:
-    build: .
-    command: bash -c "bundle exec rails s -p 3000 -b '0.0.0.0'"
-    volumes:
-      - .:/myapp
-    ports:
-      - "3000:3000"
-    depends_on:
-      - db
+    db:
+      image: postgres
+      volumes:
+        - ./tmp/db:/var/lib/postgresql/data
+    web:
+      build: .
+      command: bash -c "bundle exec rails s -p 3000 -b '0.0.0.0'"
+      volumes:
+        - .:/myapp
+      ports:
+        - "3000:3000"
+      depends_on:
+        - db
+      env_file:
+        - .env.dist
 COMPOSE
 
 create_file 'Makefile', <<~MAKE
@@ -246,6 +248,37 @@ create_file 'Makefile', <<~MAKE
   tests:
     docker-compose run web bundle exec rake spec
 MAKE
+
+create_file '.circleci/config.yml', <<~CIRCLE
+  version: 2
+  workflows:
+    version: 2
+    #{app_name}_flow:
+      jobs:
+        - build-and-test
+
+  #{app_name}_env: &#{app_name}_env
+    machine: true
+    working_directory: ~/#{app_name}
+
+  jobs:
+    build-and-test:
+      <<: *#{app_name}_env
+      steps:
+        - checkout
+        - run:
+            name: Set .env file
+            command: cp .env.dist .env
+        - run:
+            name: Start up docker-compose
+            command: make compose-run
+        - run:
+            name: Setup db
+            command: make db-setup
+        - run:
+            name: Run tests
+            command: make tests
+CIRCLE
 
 # Setup rubocop
 create_file '.rubocop.yml', <<~RUBOCOP

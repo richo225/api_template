@@ -1,0 +1,28 @@
+version: 2
+workflows:
+  version: 2
+  example_API_flow:
+    jobs:
+      - build-and-test
+
+example_API_env: &example_API_env
+  machine: true
+  working_directory: ~/example_API
+
+jobs:
+  build-and-test:
+    <<: *example_API_env
+    steps:
+      - checkout
+      - run:
+          name: Set .env file
+          command: cp .env.dist .env
+      - run:
+          name: Start up docker-compose
+          command: make compose-run
+      - run:
+          name: Setup db
+          command: make db-setup
+      - run:
+          name: Run tests
+          command: make tests
