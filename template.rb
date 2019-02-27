@@ -40,7 +40,7 @@ create_file 'config/database.yml', <<~DATABASE
     encoding: unicode
     username: postgres
     password:
-    host: localhost
+    host: db
     # For details on connection pooling, see rails configuration guide
     # http://guides.rubyonrails.org/configuring.html#database-pooling
     pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
@@ -212,19 +212,21 @@ DOCKERFILE
 create_file 'docker-compose.yml', <<~COMPOSE
   version: '3'
   services:
-  db:
-    image: postgres
-    volumes:
-      - ./tmp/db:/var/lib/postgresql/data
-  web:
-    build: .
-    command: bash -c "bundle exec rails s -p 3000 -b '0.0.0.0'"
-    volumes:
-      - .:/myapp
-    ports:
-      - "3000:3000"
-    depends_on:
-      - db
+    db:
+      image: postgres
+      volumes:
+        - ./tmp/db:/var/lib/postgresql/data
+    web:
+      build: .
+      command: bash -c "bundle exec rails s -p 3000 -b '0.0.0.0'"
+      volumes:
+        - .:/myapp
+      ports:
+        - "3000:3000"
+      depends_on:
+        - db
+      env_file:
+        - .env.dist
 COMPOSE
 
 create_file 'Makefile', <<~MAKE
