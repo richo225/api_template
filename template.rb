@@ -40,7 +40,7 @@ create_file 'config/database.yml', <<~DATABASE
     encoding: unicode
     username: postgres
     password:
-    host: db
+    host: localhost
     # For details on connection pooling, see rails configuration guide
     # http://guides.rubyonrails.org/configuring.html#database-pooling
     pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
