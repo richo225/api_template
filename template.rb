@@ -249,6 +249,37 @@ create_file 'Makefile', <<~MAKE
     docker-compose run web bundle exec rake spec
 MAKE
 
+create_file '.circleci/config.yml', <<~CIRCLE
+  version: 2
+  workflows:
+    version: 2
+    #{app_name}_flow:
+      jobs:
+        - build-and-test
+
+  #{app_name}_env: &#{app_name}_env
+    machine: true
+    working_directory: ~/#{app_name}
+
+  jobs:
+    build-and-test:
+      <<: *#{app_name}_env
+      steps:
+        - checkout
+        - run:
+            name: Set .env file
+            command: cp .env.dist .env
+        - run:
+            name: Start up docker-compose
+            command: make compose-run
+        - run:
+            name: Setup db
+            command: make db-setup
+        - run:
+            name: Run tests
+            command: make tests
+CIRCLE
+
 # Setup rubocop
 create_file '.rubocop.yml', <<~RUBOCOP
   AllCops:
