@@ -188,7 +188,7 @@ git commit: "-m 'Initial app setup'"
 # Dockerise app
 create_file 'Dockerfile', <<~DOCKERFILE
   # Base image
-  FROM ruby:2.3.6
+  FROM ruby:2.5.0
 
   # Install dependencies
   RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
@@ -283,7 +283,7 @@ CIRCLE
 # Setup rubocop
 create_file '.rubocop.yml', <<~RUBOCOP
   AllCops:
-    TargetRubyVersion: 2.3
+    TargetRubyVersion: 2.5
     Exclude:
       - 'config/**/*'
       - 'script/**/*'
