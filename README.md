@@ -1,4 +1,4 @@
-# Rails 5 JSON template
+# Rails 6.1 JSON template
 
 Basic template to help me spin up a rails app quickly
 
@@ -34,3 +34,4 @@ Create your rails app using the template:
 - [ ] Heroku deployment
 - [ ] CircleCI setup
 - [ ] Coveralls/test coverage
+- [ ] Replace `devise_token_auth` as it does not support ruby >=2.5 and hence rails 7
