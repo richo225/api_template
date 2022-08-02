@@ -12,11 +12,11 @@ gem_group :development, :test do
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'factory_bot_rails'
-  gem 'faker', '~> 1.9.1'
+  gem 'faker'
   gem 'pry'
   gem 'pry-byebug'
   gem 'shoulda-matchers'
-  gem 'rspec-rails', '~> 3.7.2'
+  gem 'rspec-rails'
 end
 
 gem_group :development do
@@ -25,7 +25,7 @@ end
 
 gem 'devise_token_auth'
 gem 'dotenv-rails'
-gem 'httparty', '~> 0.16.2'
+gem 'httparty'
 gem 'omniauth-github'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
@@ -33,7 +33,7 @@ gem 'omniauth-google-oauth2'
 # Setup database
 remove_file 'config/databse.yml'
 create_file 'config/database.yml', <<~DATABASE
-  # PostgreSQL. Versions 9.1 and up are supported.
+  # PostgreSQL. Versions 9.3 and up are supported.
 
   default: &default
     adapter: postgresql
